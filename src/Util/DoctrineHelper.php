@@ -1,6 +1,6 @@
 <?php
 
-namespace DH\Auditor\Provider\Doctrine\Persistence\Helper;
+namespace VentureLeap\LeapOnePhpSdk\Util;
 
 use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Types\Types;

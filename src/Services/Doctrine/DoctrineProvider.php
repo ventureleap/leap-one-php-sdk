@@ -1,22 +1,11 @@
 <?php
 
-namespace DH\Auditor\Provider\Doctrine;
+namespace VentureLeap\LeapOnePhpSdk\Services\Doctrine;
 
-use DH\Auditor\Event\LifecycleEvent;
-use DH\Auditor\Exception\ProviderException;
-use DH\Auditor\Provider\AbstractProvider;
-use DH\Auditor\Provider\ConfigurationInterface;
-use DH\Auditor\Provider\Doctrine\Auditing\Annotation\AnnotationLoader;
-use DH\Auditor\Provider\Doctrine\Auditing\Event\DoctrineSubscriber;
-use DH\Auditor\Provider\Doctrine\Auditing\Transaction\TransactionManager;
-use DH\Auditor\Provider\Doctrine\Persistence\Event\CreateSchemaListener;
-use DH\Auditor\Provider\Doctrine\Persistence\Helper\DoctrineHelper;
-use DH\Auditor\Provider\Doctrine\Service\AuditingService;
-use DH\Auditor\Provider\Doctrine\Service\StorageService;
-use DH\Auditor\Provider\ProviderInterface;
-use DH\Auditor\Provider\Service\AuditingServiceInterface;
-use DH\Auditor\Provider\Service\StorageServiceInterface;
-use Doctrine\ORM\EntityManagerInterface;
+
+use AutoMapperPlus\AutoMapperPlusBundle\src\EventListener\DoctrineSubscriber;
+use VentureLeap\LeapOnePhpSdk\Services\Transaction\TransactionManager;
+use VentureLeap\LeapOnePhpSdk\Util\DoctrineHelper;
 
 class DoctrineProvider extends AbstractProvider
 {

@@ -2,8 +2,9 @@
 
 namespace VentureLeap\LeapOnePhpSdk\Services\Transaction;
 
-use VentureLeap\LeapOnePhpSdk\Model\Transaction\Transaction;
+use Doctrine\ORM\EntityManagerInterface;
 use VentureLeap\LeapOnePhpSdk\Model\Transaction\TransactionInterface;
+use VentureLeap\LeapOnePhpSdk\Services\Doctrine\DoctrineProvider;
 
 class TransactionHydrator implements TransactionHydratorInterface
 {
@@ -20,7 +21,7 @@ class TransactionHydrator implements TransactionHydratorInterface
     }
 
     /**
-     * @param TransactionInterface $transaction
+     * @param Transaction $transaction
      */
     public function hydrate(TransactionInterface $transaction): void
     {

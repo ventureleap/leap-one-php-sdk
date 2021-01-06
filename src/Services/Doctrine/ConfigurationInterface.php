@@ -1,6 +1,7 @@
 <?php
 
-namespace DH\Auditor\Provider;
+namespace VentureLeap\LeapOnePhpSdk\Services\Doctrine;
+
 
 interface ConfigurationInterface
 {

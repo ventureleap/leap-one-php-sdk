@@ -1,11 +1,9 @@
 <?php
 
-namespace DH\Auditor\Provider;
+namespace VentureLeap\LeapOnePhpSdk\Services\Doctrine;
 
-use DH\Auditor\Auditor;
-use DH\Auditor\Event\LifecycleEvent;
-use DH\Auditor\Provider\Service\AuditingServiceInterface;
-use DH\Auditor\Provider\Service\StorageServiceInterface;
+use VentureLeap\LeapOnePhpSdk\Event\LifecycleEvent;
+use VentureLeap\LeapOnePhpSdk\Services\Audit\Auditor;
 
 interface ProviderInterface
 {

@@ -3,6 +3,7 @@
 namespace VentureLeap\LeapOnePhpSdk\Services\Transaction;
 
 use VentureLeap\LeapOnePhpSdk\Model\Transaction\TransactionInterface;
+use VentureLeap\LeapOnePhpSdk\Services\Doctrine\DoctrineProvider;
 
 class TransactionManager implements TransactionManagerInterface
 {

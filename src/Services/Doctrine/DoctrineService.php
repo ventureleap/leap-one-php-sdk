@@ -1,8 +1,7 @@
 <?php
 
-namespace DH\Auditor\Provider\Doctrine\Service;
+namespace VentureLeap\LeapOnePhpSdk\Services\Doctrine;
 
-use DH\Auditor\Provider\Service\AbstractService;
 use Doctrine\ORM\EntityManagerInterface;
 
 abstract class DoctrineService extends AbstractService

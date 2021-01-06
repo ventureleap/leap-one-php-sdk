@@ -2,10 +2,9 @@
 
 namespace VentureLeap\LeapOnePhpSdk\Services\Transaction;
 
-use DH\Auditor\Provider\Doctrine\Persistence\Helper\DoctrineHelper;
-use DH\Auditor\User\UserInterface;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManagerInterface;
+use VentureLeap\LeapOnePhpSdk\Util\DoctrineHelper;
 
 trait AuditTrait
 {

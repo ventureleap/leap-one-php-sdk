@@ -1,11 +1,9 @@
 <?php
 
-namespace DH\Auditor\Provider;
+namespace VentureLeap\LeapOnePhpSdk\Services\Doctrine;
 
-use DH\Auditor\Auditor;
-use DH\Auditor\Exception\ProviderException;
-use DH\Auditor\Provider\Service\AuditingServiceInterface;
-use DH\Auditor\Provider\Service\StorageServiceInterface;
+
+use VentureLeap\LeapOnePhpSdk\Services\Audit\Auditor;
 
 abstract class AbstractProvider implements ProviderInterface
 {

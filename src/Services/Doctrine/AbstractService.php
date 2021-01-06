@@ -1,6 +1,6 @@
 <?php
 
-namespace DH\Auditor\Provider\Service;
+namespace VentureLeap\LeapOnePhpSdk\Services\Doctrine;
 
 abstract class AbstractService implements ServiceInterface
 {
