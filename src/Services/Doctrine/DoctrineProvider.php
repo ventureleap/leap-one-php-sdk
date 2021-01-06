@@ -4,8 +4,10 @@ namespace VentureLeap\LeapOnePhpSdk\Services\Doctrine;
 
 
 use AutoMapperPlus\AutoMapperPlusBundle\src\EventListener\DoctrineSubscriber;
+use Doctrine\ORM\EntityManagerInterface;
 use VentureLeap\LeapOnePhpSdk\Services\Transaction\TransactionManager;
 use VentureLeap\LeapOnePhpSdk\Util\DoctrineHelper;
+use VentureLeap\LeapOnePhpSdk\Event\LifecycleEvent;
 
 class DoctrineProvider extends AbstractProvider
 {
@@ -36,39 +38,40 @@ class DoctrineProvider extends AbstractProvider
         return $this;
     }
 
-    public function registerStorageService(StorageServiceInterface $service): ProviderInterface
-    {
-        parent::registerStorageService($service);
+//    public function registerStorageService(StorageServiceInterface $service): ProviderInterface
+//    {
+//        parent::registerStorageService($service);
+//
+//        \assert($service instanceof StorageService);     // helps PHPStan
+//        $entityManager = $service->getEntityManager();
+//        $evm = $entityManager->getEventManager();
+//
+//        // Register subscribers
+//        $evm->addEventSubscriber(new CreateSchemaListener($this));
+//
+//        return $this;
+//    }
 
-        \assert($service instanceof StorageService);     // helps PHPStan
-        $entityManager = $service->getEntityManager();
-        $evm = $entityManager->getEventManager();
+//    public function isStorageMapperRequired(): bool
+//    {
+//        return false;
+//        return \count($this->getStorageServices()) > 1;
+//    }
 
-        // Register subscribers
-        $evm->addEventSubscriber(new CreateSchemaListener($this));
-
-        return $this;
-    }
-
-    public function isStorageMapperRequired(): bool
-    {
-        return \count($this->getStorageServices()) > 1;
-    }
-
-    public function getStorageServiceForEntity(string $entity): StorageServiceInterface
-    {
-        $this->checkStorageMapper();
-
-        \assert($this->configuration instanceof Configuration);   // helps PHPStan
-        $storageMapper = $this->configuration->getStorageMapper();
-
-        if (null === $storageMapper || 1 === \count($this->getStorageServices())) {
-            // No mapper and only 1 storage entity manager
-            return array_values($this->getStorageServices())[0];
-        }
-
-        return $storageMapper($entity, $this->getStorageServices());
-    }
+//    public function getStorageServiceForEntity(string $entity): StorageServiceInterface
+//    {
+//        $this->checkStorageMapper();
+//
+//        \assert($this->configuration instanceof Configuration);   // helps PHPStan
+//        $storageMapper = $this->configuration->getStorageMapper();
+//
+//        if (null === $storageMapper || 1 === \count($this->getStorageServices())) {
+//            // No mapper and only 1 storage entity manager
+//            return array_values($this->getStorageServices())[0];
+//        }
+//
+//        return $storageMapper($entity, $this->getStorageServices());
+//    }
 
     public function persist(LifecycleEvent $event): void
     {
@@ -98,15 +101,15 @@ class DoctrineProvider extends AbstractProvider
             implode(', ', array_values($fields))
         );
 
-        /** @var StorageService $storageService */
-        $storageService = $this->getStorageServiceForEntity($entity);
-        $statement = $storageService->getEntityManager()->getConnection()->prepare($query);
-
-        foreach ($payload as $key => $value) {
-            $statement->bindValue($key, $value);
-        }
-
-        $statement->execute();
+//        /** @var StorageService $storageService */
+//        $storageService = $this->getStorageServiceForEntity($entity);
+//        $statement = $storageService->getEntityManager()->getConnection()->prepare($query);
+//
+//        foreach ($payload as $key => $value) {
+//            $statement->bindValue($key, $value);
+//        }
+//
+//        $statement->execute();
     }
 
     /**
@@ -200,10 +203,10 @@ class DoctrineProvider extends AbstractProvider
         return true;
     }
 
-    public function supportsStorage(): bool
-    {
-        return true;
-    }
+//    public function supportsStorage(): bool
+//    {
+//        return true;
+//    }
 
     public function supportsAuditing(): bool
     {

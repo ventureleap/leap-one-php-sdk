@@ -3,19 +3,19 @@
 
 namespace AutoMapperPlus\AutoMapperPlusBundle\src\EventListener;
 
-use DH\Auditor\Provider\Doctrine\Auditing\Logger\Logger;
-use DH\Auditor\Provider\Doctrine\Auditing\Logger\LoggerChain;
-use DH\Auditor\Provider\Doctrine\Auditing\Transaction\TransactionManager;
-use DH\Auditor\Provider\Doctrine\Model\Transaction;
 use Doctrine\Common\EventSubscriber;
+use Doctrine\DBAL\Logging\LoggerChain;
 use Doctrine\DBAL\Logging\SQLLogger;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
+use Symfony\Component\HttpKernel\Log\Logger;
+use VentureLeap\LeapOnePhpSdk\Services\Transaction\Transaction;
+use VentureLeap\LeapOnePhpSdk\Services\Transaction\TransactionManager;
 
 class DoctrineSubscriber implements EventSubscriber
 {
     /**
-     * @var \DH\Auditor\Provider\Doctrine\Auditing\Transaction\TransactionManager
+     * @var TransactionManager
      */
     private $transactionManager;
 
@@ -49,15 +49,16 @@ class DoctrineSubscriber implements EventSubscriber
         });
 
         // Initialize a new LoggerChain with the new AuditLogger + the existing SQLLoggers.
-        $loggerChain = new LoggerChain();
-        $loggerChain->addLogger($auditLogger);
+        $loggers = [$auditLogger];
         if ($this->loggerBackup instanceof LoggerChain) {
             foreach ($this->loggerBackup->getLoggers() as $logger) {
-                $loggerChain->addLogger($logger);
+                $loggers[] = $logger;
             }
         } elseif ($this->loggerBackup instanceof SQLLogger) {
-            $loggerChain->addLogger($this->loggerBackup);
+            $loggers[] = $this->loggerBackup;
         }
+        $loggerChain = new LoggerChain($loggers);
+
         $entityManager->getConnection()->getConfiguration()->setSQLLogger($loggerChain);
 
         // Populate transaction

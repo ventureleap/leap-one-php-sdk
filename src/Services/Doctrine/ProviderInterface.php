@@ -15,26 +15,26 @@ interface ProviderInterface
 
     public function isRegistered(): bool;
 
-    public function registerStorageService(StorageServiceInterface $service): self;
+//    public function registerStorageService(StorageServiceInterface $service): self;
 
     public function registerAuditingService(AuditingServiceInterface $service): self;
 
     public function persist(LifecycleEvent $event): void;
 
-    /**
-     * @return StorageServiceInterface[]
-     */
-    public function getStorageServices(): array;
+//    /**
+//     * @return StorageServiceInterface[]
+//     */
+//    public function getStorageServices(): array;
 
     /**
      * @return AuditingServiceInterface[]
      */
     public function getAuditingServices(): array;
 
-    /**
-     * Provider supports audit storage.
-     */
-    public function supportsStorage(): bool;
+//    /**
+//     * Provider supports audit storage.
+//     */
+//    public function supportsStorage(): bool;
 
     /**
      * Provider support audit events.

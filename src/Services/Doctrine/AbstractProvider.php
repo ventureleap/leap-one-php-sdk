@@ -17,10 +17,10 @@ abstract class AbstractProvider implements ProviderInterface
      */
     protected $configuration;
 
-    /**
-     * @var StorageServiceInterface[]
-     */
-    protected $storageServices = [];
+//    /**
+//     * @var StorageServiceInterface[]
+//     */
+//    protected $storageServices = [];
 
     /**
      * @var AuditingServiceInterface[]
@@ -49,27 +49,27 @@ abstract class AbstractProvider implements ProviderInterface
         return null !== $this->auditor;
     }
 
-    public function registerStorageService(StorageServiceInterface $service): ProviderInterface
-    {
-        if (!$this->supportsStorage()) {
-            throw new ProviderException('This provider does not provide storage services.');
-        }
+//    public function registerStorageService(StorageServiceInterface $service): ProviderInterface
+//    {
+//        if (!$this->supportsStorage()) {
+//            throw new ProviderException('This provider does not provide storage services.');
+//        }
+//
+//        if (\array_key_exists($service->getName(), $this->storageServices)) {
+//            throw new ProviderException(sprintf('A storage service named "%s" is already registered.', $service->getName()));
+//        }
+//        $this->storageServices[$service->getName()] = $service;
+//
+//        return $this;
+//    }
 
-        if (\array_key_exists($service->getName(), $this->storageServices)) {
-            throw new ProviderException(sprintf('A storage service named "%s" is already registered.', $service->getName()));
-        }
-        $this->storageServices[$service->getName()] = $service;
-
-        return $this;
-    }
-
-    /**
-     * @return StorageServiceInterface[]
-     */
-    public function getStorageServices(): array
-    {
-        return $this->storageServices;
-    }
+//    /**
+//     * @return StorageServiceInterface[]
+//     */
+//    public function getStorageServices(): array
+//    {
+//        return $this->storageServices;
+//    }
 
     public function registerAuditingService(AuditingServiceInterface $service): ProviderInterface
     {
