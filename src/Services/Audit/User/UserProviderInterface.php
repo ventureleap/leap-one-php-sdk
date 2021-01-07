@@ -1,6 +1,6 @@
 <?php
 
-namespace VentureLeap\LeapOnePhpSdk\Services\Audit\User;
+namespace VentureLeap\LeapOnePhpSdk\Model\Audit\User;
 
 interface UserProviderInterface
 {

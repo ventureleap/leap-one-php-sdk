@@ -2,7 +2,6 @@
 
 namespace VentureLeap\LeapOnePhpSdk\Event;
 
-use DH\Auditor\Exception\InvalidArgumentException;
 use Symfony\Contracts\EventDispatcher\Event as ContractsEvent;
 
 abstract class AuditEvent extends ContractsEvent

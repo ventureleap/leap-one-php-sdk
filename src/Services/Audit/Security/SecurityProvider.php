@@ -2,7 +2,6 @@
 
 namespace VentureLeap\LeapOnePhpSdk\Services\Audit\Security;
 
-use DH\Auditor\Security\SecurityProviderInterface;
 use Symfony\Bundle\SecurityBundle\Security\FirewallMap;
 use Symfony\Component\HttpFoundation\RequestStack;
 

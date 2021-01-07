@@ -2,10 +2,6 @@
 
 namespace VentureLeap\LeapOnePhpSdk\Services\Audit\Security;
 
-use DH\Auditor\Provider\Doctrine\Configuration;
-use DH\Auditor\Provider\Doctrine\DoctrineProvider;
-use DH\Auditor\Security\RoleCheckerInterface;
-use DH\Auditor\User\UserInterface;
 use Symfony\Component\Security\Core\Security;
 
 class RoleChecker implements RoleCheckerInterface
