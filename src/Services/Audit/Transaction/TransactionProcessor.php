@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use VentureLeap\LeapOnePhpSdk\Event\LifecycleEvent;
 use VentureLeap\LeapOnePhpSdk\Model\Audit\Transaction\TransactionInterface;
+use VentureLeap\LeapOnePhpSdk\Services\Doctrine\Configuration;
 use VentureLeap\LeapOnePhpSdk\Services\Doctrine\DoctrineProvider;
 use VentureLeap\LeapOnePhpSdk\Util\DoctrineHelper;
 

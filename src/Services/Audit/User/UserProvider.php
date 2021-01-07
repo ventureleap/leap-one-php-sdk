@@ -1,10 +1,12 @@
 <?php
 
-namespace VentureLeap\LeapOnePhpSdk\Model\Audit\User;
+namespace VentureLeap\LeapOnePhpSdk\Services\Audit\User;
 
 use Exception;
 use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 use Symfony\Component\Security\Core\Security;
+use VentureLeap\LeapOnePhpSdk\Model\Audit\User\UserInterface as AuditorUserInterface;
+use VentureLeap\LeapOnePhpSdk\Services\Audit\Configuration;
 
 class UserProvider implements UserProviderInterface
 {
@@ -24,7 +26,7 @@ class UserProvider implements UserProviderInterface
         $this->configuration = $configuration;
     }
 
-    public function __invoke(): ?UserInterface
+    public function __invoke(): ?AuditorUserInterface
     {
         $tokenUser = $this->getTokenUser();
         $impersonatorUser = $this->getImpersonatorUser();
