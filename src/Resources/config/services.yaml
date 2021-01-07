@@ -117,3 +117,96 @@ services:
       $loginRoute: 'leap_one_user_login'
     tags: [ 'leap_one.login_form_authenticators' ]
 
+
+  VentureLeap\LeapOnePhpSdk\Services\Audit\Configuration:
+    class: VentureLeap\LeapOnePhpSdk\Services\Audit\Configuration
+    arguments:
+      - '%dh_auditor.configuration%'
+
+  VentureLeap\LeapOnePhpSdk\Services\Audit\Auditor:
+    class: VentureLeap\LeapOnePhpSdk\Services\Audit\Auditor
+    arguments:
+      - '@VentureLeap\LeapOnePhpSdk\Services\Audit\Configuration'
+      - '@event_dispatcher'
+
+  # DoctrineProvider services
+  VentureLeap\LeapOnePhpSdk\Services\Doctrine\Configuration:
+    class: VentureLeap\LeapOnePhpSdk\Services\Doctrine\Configuration
+    arguments:
+      - '%dh_auditor.provider.doctrine.configuration%'
+
+  VentureLeap\LeapOnePhpSdk\Services\Doctrine\DoctrineProvider:
+    class: VentureLeap\LeapOnePhpSdk\Services\Doctrine\DoctrineProvider
+    arguments:
+      - '@VentureLeap\LeapOnePhpSdk\Services\Doctrine\Configuration'
+    calls:
+      - [setAuditor, ['@VentureLeap\LeapOnePhpSdk\Services\Audit\Auditor']]
+    tags:
+      - { name: dh_auditor.provider }
+  dh_auditor.provider.doctrine: '@VentureLeap\LeapOnePhpSdk\Services\Doctrine\DoctrineProvider'
+
+  VentureLeap\LeapOnePhpSdk\Services\Audit\User\UserProvider:
+    class: VentureLeap\LeapOnePhpSdk\Services\Audit\User\UserProvider
+    arguments: ['@security.helper', '@VentureLeap\LeapOnePhpSdk\Services\Doctrine\Configuration']
+  dh_auditor.user_provider: '@VentureLeap\LeapOnePhpSdk\Services\Audit\User\UserProvider'
+
+  VentureLeap\LeapOnePhpSdk\Services\Audit\Security\SecurityProvider:
+    class: VentureLeap\LeapOnePhpSdk\Services\Audit\Security\SecurityProvider
+    arguments: ['@request_stack', '@security.firewall.map']
+  dh_auditor.security_provider: '@VentureLeap\LeapOnePhpSdk\Services\Audit\Security\SecurityProvider'
+
+  VentureLeap\LeapOnePhpSdk\Services\Audit\Security\RoleChecker:
+    class: VentureLeap\LeapOnePhpSdk\Services\Audit\Security\RoleChecker
+    arguments: ['@security.helper', '@VentureLeap\LeapOnePhpSdk\Services\Doctrine\DoctrineProvider']
+  dh_auditor.role_checker: '@VentureLeap\LeapOnePhpSdk\Services\Audit\Security\RoleChecker'
+
+#  DH\AuditorBundle\Event\ViewerEventSubscriber:
+#    class: DH\AuditorBundle\Event\ViewerEventSubscriber
+#    arguments: ['@DH\Auditor\Auditor']
+#    tags:
+#      - { name: kernel.event_subscriber }
+
+#  DH\AuditorBundle\Routing\RoutingAnnotationLoader:
+#    arguments:
+#      - '@routing.loader.annotation'
+#      - '%dh_auditor.provider.doctrine.configuration%'
+#    tags:
+#      - { name: routing.loader }
+
+#  DH\Auditor\Provider\Doctrine\Persistence\Reader\Reader:
+#    class: DH\Auditor\Provider\Doctrine\Persistence\Reader\Reader
+#    arguments:
+#      - '@DH\Auditor\Provider\Doctrine\DoctrineProvider'
+#
+#  DH\Auditor\Provider\Doctrine\Persistence\Event\CreateSchemaListener:
+#    class: DH\Auditor\Provider\Doctrine\Persistence\Event\CreateSchemaListener
+#    arguments: ['@DH\Auditor\Provider\Doctrine\DoctrineProvider']
+#    tags:
+#      - { name: doctrine.event_subscriber }
+#
+#  DH\Auditor\Provider\Doctrine\Persistence\Command\CleanAuditLogsCommand:
+#    class: DH\Auditor\Provider\Doctrine\Persistence\Command\CleanAuditLogsCommand
+#    tags:
+#      - { name: 'console.command', command: 'audit:clean' }
+#    calls:
+#      - [setAuditor, ['@DH\Auditor\Auditor']]
+#
+#  DH\Auditor\Provider\Doctrine\Persistence\Command\UpdateSchemaCommand:
+#    class: DH\Auditor\Provider\Doctrine\Persistence\Command\UpdateSchemaCommand
+#    tags:
+#      - { name: 'console.command', command: 'audit:schema:update' }
+#    calls:
+#      - [setAuditor, ['@DH\Auditor\Auditor']]
+#
+#  # Bundle related services
+#  DH\AuditorBundle\Controller\ViewerController:
+#    calls:
+#      - { method: setContainer, arguments: ['@service_container'] }
+#    tags: ['controller.service_arguments']
+
+#  DH\AuditorBundle\Twig\Extension\TwigExtension:
+#    class: DH\AuditorBundle\Twig\Extension\TwigExtension
+#    arguments:
+#      - '@doctrine'
+#    tags:
+#      - { name: twig.extension }
