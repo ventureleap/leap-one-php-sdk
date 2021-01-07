@@ -9,8 +9,8 @@ use Doctrine\DBAL\Logging\SQLLogger;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
 use Symfony\Component\HttpKernel\Log\Logger;
-use VentureLeap\LeapOnePhpSdk\Services\Transaction\Transaction;
-use VentureLeap\LeapOnePhpSdk\Services\Transaction\TransactionManager;
+use VentureLeap\LeapOnePhpSdk\Services\Audit\Transaction\Transaction;
+use VentureLeap\LeapOnePhpSdk\Services\Audit\Transaction\TransactionManager;
 
 class DoctrineSubscriber implements EventSubscriber
 {

@@ -5,7 +5,7 @@ namespace VentureLeap\LeapOnePhpSdk\Services\Doctrine;
 
 use AutoMapperPlus\AutoMapperPlusBundle\src\EventListener\DoctrineSubscriber;
 use Doctrine\ORM\EntityManagerInterface;
-use VentureLeap\LeapOnePhpSdk\Services\Transaction\TransactionManager;
+use VentureLeap\LeapOnePhpSdk\Services\Audit\Transaction\TransactionManager;
 use VentureLeap\LeapOnePhpSdk\Util\DoctrineHelper;
 use VentureLeap\LeapOnePhpSdk\Event\LifecycleEvent;
 

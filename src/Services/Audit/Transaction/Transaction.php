@@ -1,9 +1,9 @@
 <?php
 
 
-namespace VentureLeap\LeapOnePhpSdk\Services\Transaction;
+namespace VentureLeap\LeapOnePhpSdk\Services\Audit\Transaction;
 
-use VentureLeap\LeapOnePhpSdk\Model\Transaction\Transaction as BaseTransaction;
+use VentureLeap\LeapOnePhpSdk\Model\Audit\Transaction\Transaction as BaseTransaction;
 use Doctrine\ORM\EntityManagerInterface;
 
 class Transaction extends BaseTransaction

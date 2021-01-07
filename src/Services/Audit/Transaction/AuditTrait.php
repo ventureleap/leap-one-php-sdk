@@ -1,7 +1,8 @@
 <?php
 
-namespace VentureLeap\LeapOnePhpSdk\Services\Transaction;
+namespace VentureLeap\LeapOnePhpSdk\Services\Audit\Transaction;
 
+use DH\Auditor\User\UserInterface;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManagerInterface;
 use VentureLeap\LeapOnePhpSdk\Util\DoctrineHelper;

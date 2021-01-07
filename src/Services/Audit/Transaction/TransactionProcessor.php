@@ -1,13 +1,13 @@
 <?php
 
-namespace VentureLeap\LeapOnePhpSdk\Services\Transaction;
+namespace VentureLeap\LeapOnePhpSdk\Services\Audit\Transaction;
 
 use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use VentureLeap\LeapOnePhpSdk\Event\LifecycleEvent;
-use VentureLeap\LeapOnePhpSdk\Model\Transaction\TransactionInterface;
+use VentureLeap\LeapOnePhpSdk\Model\Audit\Transaction\TransactionInterface;
 use VentureLeap\LeapOnePhpSdk\Services\Doctrine\DoctrineProvider;
 use VentureLeap\LeapOnePhpSdk\Util\DoctrineHelper;
 

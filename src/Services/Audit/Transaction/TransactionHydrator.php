@@ -1,9 +1,9 @@
 <?php
 
-namespace VentureLeap\LeapOnePhpSdk\Services\Transaction;
+namespace VentureLeap\LeapOnePhpSdk\Services\Audit\Transaction;
 
 use Doctrine\ORM\EntityManagerInterface;
-use VentureLeap\LeapOnePhpSdk\Model\Transaction\TransactionInterface;
+use VentureLeap\LeapOnePhpSdk\Model\Audit\Transaction\TransactionInterface;
 use VentureLeap\LeapOnePhpSdk\Services\Doctrine\DoctrineProvider;
 
 class TransactionHydrator implements TransactionHydratorInterface

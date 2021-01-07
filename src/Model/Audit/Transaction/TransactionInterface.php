@@ -1,7 +1,7 @@
 <?php
 
 
-namespace VentureLeap\LeapOnePhpSdk\Model\Transaction;
+namespace VentureLeap\LeapOnePhpSdk\Model\Audit\Transaction;
 
 
 interface TransactionInterface

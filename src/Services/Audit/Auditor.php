@@ -4,6 +4,7 @@
 namespace VentureLeap\LeapOnePhpSdk\Services\Audit;
 
 use AutoMapperPlus\AutoMapperPlusBundle\src\EventSubscriber\AuditEventSubscriber;
+use AutoMapperPlus\AutoMapperPlusBundle\src\Services\AuditLogEntryManager;
 use ReflectionException;
 use ReflectionMethod;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -42,10 +43,16 @@ class Auditor
     private $is_pre43_dispatcher;
 
     /**
+     * @var AuditLogEntryManager
+     */
+    private $auditLogEntryManager;
+
+    /**
      * @throws ReflectionException
      */
-    public function __construct(Configuration $configuration, EventDispatcherInterface $dispatcher)
+    public function __construct(Configuration $configuration, EventDispatcherInterface $dispatcher, AuditLogEntryManager $auditLogEntryManager)
     {
+        $this->auditLogEntryManager = $auditLogEntryManager;
         $this->configuration = $configuration;
         $this->dispatcher = $dispatcher;
 
@@ -55,6 +62,22 @@ class Auditor
 
         // Attach persistence event subscriber to provided dispatcher
         $dispatcher->addSubscriber(new AuditEventSubscriber($this));
+    }
+
+    /**
+     * @return AuditLogEntryManager
+     */
+    public function getAuditLogEntryManager(): AuditLogEntryManager
+    {
+        return $this->auditLogEntryManager;
+    }
+
+    /**
+     * @param AuditLogEntryManager $auditLogEntryManager
+     */
+    public function setAuditLogEntryManager(AuditLogEntryManager $auditLogEntryManager): void
+    {
+        $this->auditLogEntryManager = $auditLogEntryManager;
     }
 
     public function isPre43Dispatcher(): bool

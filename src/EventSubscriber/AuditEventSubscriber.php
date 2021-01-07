@@ -6,6 +6,7 @@ namespace AutoMapperPlus\AutoMapperPlusBundle\src\EventSubscriber;
 use Exception;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use VentureLeap\LeapOnePhpSdk\Event\LifecycleEvent;
+use VentureLeap\LeapOnePhpSdk\Services\Audit\Auditor;
 
 class AuditEventSubscriber implements EventSubscriberInterface
 {
@@ -30,15 +31,16 @@ class AuditEventSubscriber implements EventSubscriberInterface
 
     public function onAuditEvent(LifecycleEvent $event): LifecycleEvent
     {
-        foreach ($this->auditor->getProviders() as $provider) {
-            if ($provider->supportsStorage()) {
-                try {
-                    $provider->persist($event);
-                } catch (Exception $e) {
-                    // do nothing to ensure other providers are called
-                }
-            }
-        }
+        $this->auditor->getAuditLogEntryManager()->saveAuditLogEntry($event);
+//        foreach ($this->auditor->getProviders() as $provider) {
+//            if ($provider->supportsStorage()) {
+//                try {
+//                    $provider->persist($event);
+//                } catch (Exception $e) {
+//                    // do nothing to ensure other providers are called
+//                }
+//            }
+//        }
 
         return $event;
     }
