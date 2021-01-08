@@ -35,7 +35,7 @@ class AuditLogEntryManager
     public function saveAuditLogEntry(LifecycleEvent $event)
     {
 //        $body = new AuditLogEntryJsonldAuditLogWrite();
-        $body = $this->autoMapper->map($event, AuditLogEntryJsonldAuditLogWrite::class);
+        $body = $this->autoMapper->map($event->getPayload(), AuditLogEntryJsonldAuditLogWrite::class);
         $this->auditLogEntryApi->postAuditLogEntryCollection($body);
         $uri = $this->requestStack->getCurrentRequest()->getUri();
         $payload = $event->getPayload();
