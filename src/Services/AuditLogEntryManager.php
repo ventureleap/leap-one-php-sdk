@@ -43,24 +43,6 @@ class AuditLogEntryManager
         $body->setBody([$event->getPayload()['diffs'], $event->getPayload()['discriminator']]);
         $body->setUrl($uri);
         $this->auditLogEntryApi->postAuditLogEntryCollection($body);
-        $payload = $event->getPayload();
-        $auditTable = $payload['table'];
-        $entity = $payload['entity'];
-        unset($payload['table'], $payload['entity']);
-
-        $fields = [
-            'type' => ':type',
-            'object_id' => ':object_id',
-            'discriminator' => ':discriminator',
-            'transaction_hash' => ':transaction_hash',
-            'diffs' => ':diffs',
-            'blame_id' => ':blame_id',
-            'blame_user' => ':blame_user',
-            'blame_user_fqdn' => ':blame_user_fqdn',
-            'blame_user_firewall' => ':blame_user_firewall',
-            'ip' => ':ip',
-            'created_at' => ':created_at',
-        ];
     }
 
 }

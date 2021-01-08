@@ -35,7 +35,6 @@ class UserProvider implements UserProviderInterface
 
         $identifier = null;
         $username = null;
-
         if (null !== $tokenUser && $tokenUser instanceof UserInterface) {
             if (method_exists($tokenUser, 'getUuid')) {
                 $identifier = $tokenUser->getUuid();
@@ -44,13 +43,13 @@ class UserProvider implements UserProviderInterface
             $username = $tokenUser->getUsername();
         }
 
-        if (null !== $impersonatorUser && $impersonatorUser instanceof UserInterface) {
-            $username .= sprintf('[impersonator %s]', $impersonatorUser->getUsername());
-        }
-
-        if (null === $identifier && null === $username) {
-            return null;
-        }
+//        if (null !== $impersonatorUser && $impersonatorUser instanceof UserInterface) {
+//            $username .= sprintf('[impersonator %s]', $impersonatorUser->getUsername());
+//        }
+//
+//        if (null === $identifier && null === $username) {
+//            return null;
+//        }
 
         return new User($identifier, $username);
     }
