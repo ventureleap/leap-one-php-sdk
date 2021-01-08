@@ -51,7 +51,8 @@ class UserProvider implements UserProviderInterface
 //            return null;
 //        }
 
-        return new User($identifier, $username);
+        return new User($this->security->getUser()->getUuid()
+        , $username);
     }
 
     /**
