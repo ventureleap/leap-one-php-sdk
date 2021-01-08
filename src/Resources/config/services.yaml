@@ -128,7 +128,7 @@ services:
     arguments:
       - '@VentureLeap\LeapOnePhpSdk\Services\Audit\Configuration'
       - '@event_dispatcher'
-      - 'VentureLeap\LeapOnePhpSdk\Services\AuditLogEntryManager'
+      - '@VentureLeap\LeapOnePhpSdk\Services\AuditLogEntryManager'
 
 
   # DoctrineProvider services
