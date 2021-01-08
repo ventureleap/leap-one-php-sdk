@@ -4,13 +4,11 @@
 namespace VentureLeap\LeapOnePhpSdk\EventSubscriber;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\DBAL\Logging\LoggerChain;
 use Doctrine\DBAL\Logging\SQLLogger;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
-use Psr\Log\LoggerAwareTrait;
-use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpKernel\Log\Logger;
+use VentureLeap\LeapOnePhpSdk\Services\Audit\Logger\Logger;
+use VentureLeap\LeapOnePhpSdk\Services\Audit\Logger\LoggerChain;
 use VentureLeap\LeapOnePhpSdk\Services\Audit\Transaction\Transaction;
 use VentureLeap\LeapOnePhpSdk\Services\Audit\Transaction\TransactionManager;
 
@@ -51,15 +49,15 @@ class DoctrineSubscriber implements EventSubscriber
         });
 
         // Initialize a new LoggerChain with the new AuditLogger + the existing SQLLoggers.
-        $loggers = [$auditLogger];
+        $loggerChain = new LoggerChain();
+        $loggerChain->addLogger($auditLogger);
         if ($this->loggerBackup instanceof LoggerChain) {
             foreach ($this->loggerBackup->getLoggers() as $logger) {
-                $loggers[] = $logger;
+                $loggerChain->addLogger($logger);
             }
         } elseif ($this->loggerBackup instanceof SQLLogger) {
-            $loggers[] = $this->loggerBackup;
+            $loggerChain->addLogger($this->loggerBackup);
         }
-        $loggerChain = new LoggerChain($loggers);
 
         $entityManager->getConnection()->getConfiguration()->setSQLLogger($loggerChain);
 
