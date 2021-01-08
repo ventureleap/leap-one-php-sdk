@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Reference;
 class AddProviderCompilerPass implements CompilerPassInterface
 {
     /**
-     * Get all providers based on their tag (`dh_auditor.provider`) and register them.
+     * Get all providers based on their tag (`leap_one_php_sdk.provider`) and register them.
      */
     public function process(ContainerBuilder $container): void
     {
@@ -21,7 +21,7 @@ class AddProviderCompilerPass implements CompilerPassInterface
         $auditorDefinition = $container->getDefinition(Auditor::class);
 
         $providers = [];
-        foreach ($container->findTaggedServiceIds('dh_auditor.provider') as $providerId => $attributes) {
+        foreach ($container->findTaggedServiceIds('leap_one_php_sdk.provider') as $providerId => $attributes) {
             $providers[] = new Reference($providerId);
         }
 

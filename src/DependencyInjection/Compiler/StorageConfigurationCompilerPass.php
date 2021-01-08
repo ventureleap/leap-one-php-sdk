@@ -19,7 +19,7 @@ class StorageConfigurationCompilerPass implements CompilerPassInterface
             return;
         }
 
-        $doctrineProviderConfigurationKey = 'dh_auditor.provider.doctrine.configuration';
+        $doctrineProviderConfigurationKey = 'leap_one_php_sdk.provider.doctrine.configuration';
         if (!$container->hasParameter($doctrineProviderConfigurationKey)) {
             return;
         }
@@ -31,7 +31,7 @@ class StorageConfigurationCompilerPass implements CompilerPassInterface
             $entityManagerReference = new Reference($service);
 
             $serviceDefinition = new Definition(StorageService::class, [
-                'dh_auditor.provider.doctrine.storage_services.'.$service,
+                'leap_one_php_sdk.provider.doctrine.storage_services.'.$service,
                 $entityManagerReference,
             ]);
             $container->setDefinition(StorageService::class, $serviceDefinition);
@@ -45,7 +45,7 @@ class StorageConfigurationCompilerPass implements CompilerPassInterface
             $entityManagerReference = new Reference($service);
 
             $serviceDefinition = new Definition(AuditingService::class, [
-                'dh_auditor.provider.doctrine.auditing_services.'.$service,
+                'leap_one_php_sdk.provider.doctrine.auditing_services.'.$service,
                 $entityManagerReference,
             ]);
             $container->setDefinition(AuditingService::class, $serviceDefinition);

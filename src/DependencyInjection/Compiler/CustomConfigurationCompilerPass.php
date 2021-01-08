@@ -15,12 +15,12 @@ class CustomConfigurationCompilerPass implements CompilerPassInterface
             return;
         }
 
-        if (!$container->hasParameter('dh_auditor.configuration')) {
+        if (!$container->hasParameter('leap_one_php_sdk.configuration')) {
             return;
         }
 
         $providerDefinition = $container->getDefinition(Configuration::class);
-        $config = $container->getParameter('dh_auditor.configuration');
+        $config = $container->getParameter('leap_one_php_sdk.configuration');
 
         // User provider service
         $serviceId = $config['user_provider'];

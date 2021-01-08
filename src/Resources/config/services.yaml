@@ -121,7 +121,7 @@ services:
   VentureLeap\LeapOnePhpSdk\Services\Audit\Configuration:
     class: VentureLeap\LeapOnePhpSdk\Services\Audit\Configuration
     arguments:
-      - '%dh_auditor.configuration%'
+      - '%leap_one_php_sdk.configuration%'
 
   VentureLeap\LeapOnePhpSdk\Services\Audit\Auditor:
     class: VentureLeap\LeapOnePhpSdk\Services\Audit\Auditor
@@ -135,7 +135,7 @@ services:
   VentureLeap\LeapOnePhpSdk\Services\Doctrine\Configuration:
     class: VentureLeap\LeapOnePhpSdk\Services\Doctrine\Configuration
     arguments:
-      - '%dh_auditor.provider.doctrine.configuration%'
+      - '%leap_one_php_sdk.provider.doctrine.configuration%'
 
   VentureLeap\LeapOnePhpSdk\Services\Doctrine\DoctrineProvider:
     class: VentureLeap\LeapOnePhpSdk\Services\Doctrine\DoctrineProvider
@@ -144,23 +144,23 @@ services:
     calls:
       - [setAuditor, ['@VentureLeap\LeapOnePhpSdk\Services\Audit\Auditor']]
     tags:
-      - { name: dh_auditor.provider }
-  dh_auditor.provider.doctrine: '@VentureLeap\LeapOnePhpSdk\Services\Doctrine\DoctrineProvider'
+      - { name: leap_one_php_sdk.provider }
+  leap_one_php_sdk.provider.doctrine: '@VentureLeap\LeapOnePhpSdk\Services\Doctrine\DoctrineProvider'
 
   VentureLeap\LeapOnePhpSdk\Services\Audit\User\UserProvider:
     class: VentureLeap\LeapOnePhpSdk\Services\Audit\User\UserProvider
     arguments: ['@security.helper', '@VentureLeap\LeapOnePhpSdk\Services\Doctrine\Configuration']
-  dh_auditor.user_provider: '@VentureLeap\LeapOnePhpSdk\Services\Audit\User\UserProvider'
+  leap_one_php_sdk.user_provider: '@VentureLeap\LeapOnePhpSdk\Services\Audit\User\UserProvider'
 
   VentureLeap\LeapOnePhpSdk\Services\Audit\Security\SecurityProvider:
     class: VentureLeap\LeapOnePhpSdk\Services\Audit\Security\SecurityProvider
     arguments: ['@request_stack', '@security.firewall.map']
-  dh_auditor.security_provider: '@VentureLeap\LeapOnePhpSdk\Services\Audit\Security\SecurityProvider'
+  leap_one_php_sdk.security_provider: '@VentureLeap\LeapOnePhpSdk\Services\Audit\Security\SecurityProvider'
 
   VentureLeap\LeapOnePhpSdk\Services\Audit\Security\RoleChecker:
     class: VentureLeap\LeapOnePhpSdk\Services\Audit\Security\RoleChecker
     arguments: ['@security.helper', '@VentureLeap\LeapOnePhpSdk\Services\Doctrine\DoctrineProvider']
-  dh_auditor.role_checker: '@VentureLeap\LeapOnePhpSdk\Services\Audit\Security\RoleChecker'
+  leap_one_php_sdk.role_checker: '@VentureLeap\LeapOnePhpSdk\Services\Audit\Security\RoleChecker'
 
   VentureLeap\LeapOnePhpSdk\EventSubscriber\DoctrineSubscriber:
     tags:
@@ -174,7 +174,7 @@ services:
 #  DH\AuditorBundle\Routing\RoutingAnnotationLoader:
 #    arguments:
 #      - '@routing.loader.annotation'
-#      - '%dh_auditor.provider.doctrine.configuration%'
+#      - '%leap_one_php_sdk.provider.doctrine.configuration%'
 #    tags:
 #      - { name: routing.loader }
 

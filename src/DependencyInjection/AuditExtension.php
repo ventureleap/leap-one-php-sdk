@@ -3,12 +3,11 @@
 namespace VentureLeap\LeapOnePhpSdk\DependencyInjection;
 
 
-use DH\Auditor\Provider\ProviderInterface;
-use DH\AuditorBundle\DependencyInjection\Configuration;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use VentureLeap\LeapOnePhpSdk\Services\Doctrine\ProviderInterface;
 
 class AuditExtension extends Extension
 {
@@ -25,7 +24,7 @@ class AuditExtension extends Extension
 
         $auditorConfig = $config;
         unset($auditorConfig['providers']);
-        $container->setParameter('dh_auditor.configuration', $auditorConfig);
+        $container->setParameter('leap_one_php_sdk.configuration', $auditorConfig);
 
         $this->loadProviders($container, $config);
     }
@@ -33,10 +32,10 @@ class AuditExtension extends Extension
     private function loadProviders(ContainerBuilder $container, array $config): void
     {
         foreach ($config['providers'] as $providerName => $providerConfig) {
-            $container->setParameter('dh_auditor.provider.' . $providerName . '.configuration', $providerConfig);
+            $container->setParameter('leap_one_php_sdk.provider.' . $providerName . '.configuration', $providerConfig);
 
             if (method_exists($container, 'registerAliasForArgument')) {
-                $serviceId = 'dh_auditor.provider.' . $providerName;
+                $serviceId = 'leap_one_php_sdk.provider.' . $providerName;
                 $container->registerAliasForArgument($serviceId, ProviderInterface::class, "{$providerName}Provider");
             }
         }
