@@ -2,10 +2,11 @@
 
 namespace VentureLeap\LeapOnePhpSdk\DependencyInjection\Compiler;
 
-use DH\Auditor\Auditor;
+//use DH\Auditor\Auditor;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use VentureLeap\LeapOnePhpSdk\Services\Audit\Auditor;
 
 class AddProviderCompilerPass implements CompilerPassInterface
 {

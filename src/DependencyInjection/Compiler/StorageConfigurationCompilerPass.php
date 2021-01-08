@@ -2,14 +2,14 @@
 
 namespace VentureLeap\LeapOnePhpSdk\DependencyInjection\Compiler;
 
-use DH\Auditor\Provider\Doctrine\Auditing\Annotation\AnnotationLoader;
-use DH\Auditor\Provider\Doctrine\DoctrineProvider;
-use DH\Auditor\Provider\Doctrine\Service\AuditingService;
-use DH\Auditor\Provider\Doctrine\Service\StorageService;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
+use VentureLeap\LeapOnePhpSdk\Services\Annotation\AnnotationLoader;
+use VentureLeap\LeapOnePhpSdk\Services\Doctrine\AuditingService;
+use VentureLeap\LeapOnePhpSdk\Services\Doctrine\DoctrineProvider;
+use VentureLeap\LeapOnePhpSdk\Services\Doctrine\StorageService;
 
 class StorageConfigurationCompilerPass implements CompilerPassInterface
 {
