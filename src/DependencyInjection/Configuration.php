@@ -20,7 +20,6 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
             ->variableNode(static::ROUTE_AFTER_LOGIN_KEY)->defaultValue('account_profile_show')->end()
-            ->children()
             ->booleanNode('enabled')
             ->defaultTrue()
             ->end()
