@@ -5,7 +5,7 @@ namespace VentureLeap\LeapOnePhpSdk\Services\Audit\User;
 use Exception;
 use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 use Symfony\Component\Security\Core\Security;
-use VentureLeap\LeapOnePhpSdk\Model\Audit\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use VentureLeap\LeapOnePhpSdk\Model\Audit\User\User;
 use VentureLeap\LeapOnePhpSdk\Model\Audit\User\UserInterface as AuditorUserInterface;
 use VentureLeap\LeapOnePhpSdk\Services\Doctrine\Configuration;
@@ -37,8 +37,8 @@ class UserProvider implements UserProviderInterface
         $username = null;
 
         if (null !== $tokenUser && $tokenUser instanceof UserInterface) {
-            if (method_exists($tokenUser, 'getId')) {
-                $identifier = $tokenUser->getId();
+            if (method_exists($tokenUser, 'getUuid')) {
+                $identifier = $tokenUser->getUuid();
             }
 
             $username = $tokenUser->getUsername();
