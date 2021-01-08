@@ -1,19 +1,22 @@
 <?php
 
 
-namespace AutoMapperPlus\AutoMapperPlusBundle\src\EventListener;
+namespace VentureLeap\LeapOnePhpSdk\EventSubscriber;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\DBAL\Logging\LoggerChain;
 use Doctrine\DBAL\Logging\SQLLogger;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Events;
+use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\Log\Logger;
 use VentureLeap\LeapOnePhpSdk\Services\Audit\Transaction\Transaction;
 use VentureLeap\LeapOnePhpSdk\Services\Audit\Transaction\TransactionManager;
 
 class DoctrineSubscriber implements EventSubscriber
 {
+    use LoggerAwareTrait;
     /**
      * @var TransactionManager
      */
@@ -37,6 +40,7 @@ class DoctrineSubscriber implements EventSubscriber
      */
     public function onFlush(OnFlushEventArgs $args): void
     {
+        $this->logger->error("ONFLUSHEVENT");
         $entityManager = $args->getEntityManager();
         $transaction = new Transaction($entityManager);
 

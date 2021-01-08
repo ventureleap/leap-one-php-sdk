@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AutoMapperPlus\AutoMapperPlusBundle\src\Services;
+namespace VentureLeap\LeapOnePhpSdk\Services;
 
 
 use AutoMapperPlus\AutoMapperInterface;

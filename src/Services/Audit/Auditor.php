@@ -3,11 +3,11 @@
 
 namespace VentureLeap\LeapOnePhpSdk\Services\Audit;
 
-use AutoMapperPlus\AutoMapperPlusBundle\src\EventSubscriber\AuditEventSubscriber;
-use AutoMapperPlus\AutoMapperPlusBundle\src\Services\AuditLogEntryManager;
 use ReflectionException;
 use ReflectionMethod;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use VentureLeap\LeapOnePhpSdk\EventSubscriber\AuditEventSubscriber;
+use VentureLeap\LeapOnePhpSdk\Services\AuditLogEntryManager;
 use VentureLeap\LeapOnePhpSdk\Services\Doctrine\ProviderInterface;
 
 class Auditor

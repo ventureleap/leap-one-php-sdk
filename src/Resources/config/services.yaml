@@ -128,6 +128,8 @@ services:
     arguments:
       - '@VentureLeap\LeapOnePhpSdk\Services\Audit\Configuration'
       - '@event_dispatcher'
+      - 'VentureLeap\LeapOnePhpSdk\Services\AuditLogEntryManager'
+
 
   # DoctrineProvider services
   VentureLeap\LeapOnePhpSdk\Services\Doctrine\Configuration:
@@ -160,6 +162,9 @@ services:
     arguments: ['@security.helper', '@VentureLeap\LeapOnePhpSdk\Services\Doctrine\DoctrineProvider']
   dh_auditor.role_checker: '@VentureLeap\LeapOnePhpSdk\Services\Audit\Security\RoleChecker'
 
+  VentureLeap\LeapOnePhpSdk\EventSubscriber\DoctrineSubscriber:
+    tags:
+      - { name: 'doctrine.event_subscriber' }
 #  DH\AuditorBundle\Event\ViewerEventSubscriber:
 #    class: DH\AuditorBundle\Event\ViewerEventSubscriber
 #    arguments: ['@DH\Auditor\Auditor']

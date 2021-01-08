@@ -1,15 +1,18 @@
 <?php
 
 
-namespace AutoMapperPlus\AutoMapperPlusBundle\src\EventSubscriber;
+namespace VentureLeap\LeapOnePhpSdk\EventSubscriber;
 
 use Exception;
+use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use VentureLeap\LeapOnePhpSdk\Event\LifecycleEvent;
 use VentureLeap\LeapOnePhpSdk\Services\Audit\Auditor;
 
 class AuditEventSubscriber implements EventSubscriberInterface
 {
+    use LoggerAwareTrait;
     /**
      * @var Auditor
      */
@@ -31,6 +34,7 @@ class AuditEventSubscriber implements EventSubscriberInterface
 
     public function onAuditEvent(LifecycleEvent $event): LifecycleEvent
     {
+        $this->logger->error("HEY HERE I AM");
         $this->auditor->getAuditLogEntryManager()->saveAuditLogEntry($event);
 //        foreach ($this->auditor->getProviders() as $provider) {
 //            if ($provider->supportsStorage()) {
