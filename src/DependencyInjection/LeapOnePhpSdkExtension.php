@@ -25,6 +25,8 @@ class LeapOnePhpSdkExtension extends Extension
 
         $auditorConfig = $config;
         unset($auditorConfig['providers']);
+        unset($auditorConfig['route_after_login']);
+
         $container->setParameter('leap_one_php_sdk.configuration', $auditorConfig);
 
         $this->loadProviders($container, $config);
