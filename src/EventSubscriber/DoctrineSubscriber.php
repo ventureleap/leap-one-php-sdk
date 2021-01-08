@@ -16,7 +16,6 @@ use VentureLeap\LeapOnePhpSdk\Services\Audit\Transaction\TransactionManager;
 
 class DoctrineSubscriber implements EventSubscriber
 {
-    use LoggerAwareTrait;
     /**
      * @var TransactionManager
      */
@@ -40,7 +39,6 @@ class DoctrineSubscriber implements EventSubscriber
      */
     public function onFlush(OnFlushEventArgs $args): void
     {
-        $this->logger->error("ONFLUSHEVENT");
         $entityManager = $args->getEntityManager();
         $transaction = new Transaction($entityManager);
 
