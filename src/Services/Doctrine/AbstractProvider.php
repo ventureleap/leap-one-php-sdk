@@ -49,8 +49,8 @@ abstract class AbstractProvider implements ProviderInterface
         return null !== $this->auditor;
     }
 
-//    public function registerStorageService(StorageServiceInterface $service): ProviderInterface
-//    {
+    public function registerStorageService(StorageServiceInterface $service): ProviderInterface
+    {
 //        if (!$this->supportsStorage()) {
 //            throw new ProviderException('This provider does not provide storage services.');
 //        }
@@ -59,9 +59,9 @@ abstract class AbstractProvider implements ProviderInterface
 //            throw new ProviderException(sprintf('A storage service named "%s" is already registered.', $service->getName()));
 //        }
 //        $this->storageServices[$service->getName()] = $service;
-//
-//        return $this;
-//    }
+
+        return $this;
+    }
 
 //    /**
 //     * @return StorageServiceInterface[]

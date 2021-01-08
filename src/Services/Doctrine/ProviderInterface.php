@@ -15,7 +15,7 @@ interface ProviderInterface
 
     public function isRegistered(): bool;
 
-//    public function registerStorageService(StorageServiceInterface $service): self;
+    public function registerStorageService(StorageServiceInterface $service): self;
 
     public function registerAuditingService(AuditingServiceInterface $service): self;
 

@@ -13,6 +13,8 @@ class LeapOnePhpSdkBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {
+        parent::build($container);
+
         $container->addCompilerPass(new AddProviderCompilerPass());
         $container->addCompilerPass(new StorageConfigurationCompilerPass());
         $container->addCompilerPass(new CustomConfigurationCompilerPass());
