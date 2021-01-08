@@ -26,19 +26,19 @@ class StorageConfigurationCompilerPass implements CompilerPassInterface
 
         $providerDefinition = $container->getDefinition(DoctrineProvider::class);
         $config = $container->getParameter($doctrineProviderConfigurationKey);
-        foreach ($config['storage_services'] as $service) {
-            $service = str_replace('@', '', $service);
-            $entityManagerReference = new Reference($service);
-
-            $serviceDefinition = new Definition(StorageService::class, [
-                'leap_one_php_sdk.provider.doctrine.storage_services.'.$service,
-                $entityManagerReference,
-            ]);
-            $container->setDefinition(StorageService::class, $serviceDefinition);
-            $serviceReference = new Reference(StorageService::class);
-
-            $providerDefinition->addMethodCall('registerStorageService', [$serviceReference]);
-        }
+//        foreach ($config['storage_services'] as $service) {
+//            $service = str_replace('@', '', $service);
+//            $entityManagerReference = new Reference($service);
+//
+//            $serviceDefinition = new Definition(StorageService::class, [
+//                'leap_one_php_sdk.provider.doctrine.storage_services.'.$service,
+//                $entityManagerReference,
+//            ]);
+//            $container->setDefinition(StorageService::class, $serviceDefinition);
+//            $serviceReference = new Reference(StorageService::class);
+//
+//            $providerDefinition->addMethodCall('registerStorageService', [$serviceReference]);
+//        }
 
         foreach ($config['auditing_services'] as $service) {
             $service = str_replace('@', '', $service);
