@@ -60,6 +60,7 @@ class TransactionProcessor implements TransactionProcessorInterface
             'transaction_hash' => $transactionHash,
             'discriminator' => $this->getDiscriminator($entity, $meta->inheritanceType),
             'entity' => $meta->getName(),
+            'url' => null
         ]);
     }
 

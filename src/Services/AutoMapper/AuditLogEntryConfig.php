@@ -7,6 +7,7 @@ namespace VentureLeap\LeapOnePhpSdk\Services\AutoMapper;
 use AutoMapperPlus\AutoMapperPlusBundle\AutoMapperConfiguratorInterface;
 use AutoMapperPlus\Configuration\AutoMapperConfigInterface;
 use AutoMapperPlus\DataType;
+use AutoMapperPlus\MappingOperation\Operation;
 use AutoMapperPlus\NameConverter\NamingConvention\CamelCaseNamingConvention;
 use AutoMapperPlus\NameConverter\NamingConvention\SnakeCaseNamingConvention;
 use VentureLeap\AuditLogService\Model\AuditLogEntryJsonldAuditLogWrite;
@@ -29,13 +30,21 @@ class AuditLogEntryConfig implements AutoMapperConfiguratorInterface
 //            'ip' => $data['blame']['client_ip'],
 //            'created_at' => $dt->format('Y-m-d H:i:s'),
         $config->registerMapping(DataType::ARRAY, AuditLogEntryJsonldAuditLogWrite::class)
-            ->withNamingConventions(
-                new SnakeCaseNamingConvention(),
-                new CamelCaseNamingConvention()
-            );
-//        'user_uuid' => 'string',
-//'url' => 'string',
-//'body' => 'string[]',
-//'entry_type' => 'string'
+            ->forMember('body', function (array $source) {
+                    return json_encode($source);
+                })
+            ->forMember('url', function (array $source) {
+                    return $source['url'];
+                })
+            ->forMember('entryType', function (array $source) {
+                return $source['type'];
+            })
+            ->forMember('user_uuid', function (array $source) {
+                return $source['blame_id'];
+            })
+            ->forMember('type', Operation::ignore())
+            ->forMember('id', Operation::ignore())
+            ->forMember('context', Operation::ignore())
+        ;
     }
 }
