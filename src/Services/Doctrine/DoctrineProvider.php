@@ -5,6 +5,7 @@ namespace VentureLeap\LeapOnePhpSdk\Services\Doctrine;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerAwareTrait;
+use Symfony\Component\HttpFoundation\RequestStack;
 use VentureLeap\LeapOnePhpSdk\EventSubscriber\DoctrineSubscriber;
 use VentureLeap\LeapOnePhpSdk\Services\Annotation\AnnotationLoader;
 use VentureLeap\LeapOnePhpSdk\Services\Audit\Transaction\TransactionManager;
@@ -17,11 +18,21 @@ class DoctrineProvider extends AbstractProvider
      * @var TransactionManager
      */
     private $transactionManager;
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
 
-    public function __construct(ConfigurationInterface $configuration)
+    public function __construct(ConfigurationInterface $configuration, RequestStack $requestStack)
     {
         $this->configuration = $configuration;
+        $this->requestStack = $requestStack;
         $this->transactionManager = new TransactionManager($this);
+    }
+
+    public function getRequestStack(): RequestStack
+    {
+        return $this->requestStack;
     }
 
     public function registerAuditingService(AuditingServiceInterface $service): ProviderInterface
