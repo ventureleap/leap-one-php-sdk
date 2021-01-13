@@ -221,6 +221,7 @@ class TransactionProcessor implements TransactionProcessorInterface
             'blame_user_firewall' => $data['blame']['user_firewall'],
             'ip' => $data['blame']['client_ip'],
             'created_at' => $dt->format('Y-m-d H:i:s'),
+            'url' => $data['url'],
         ];
 
         // send an `AuditEvent` event
