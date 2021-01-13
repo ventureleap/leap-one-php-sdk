@@ -47,7 +47,7 @@ class UserProvider implements UserProviderInterface
     {
         $usersForUsername = $this->userApi->getUserCollection($username, null, null, null, $this->userType);
 
-        if (null === $usersForUsername) {
+        if (null === $usersForUsername || null === $usersForUsername->getHydramember()) {
             throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
         }
 
