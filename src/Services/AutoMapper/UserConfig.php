@@ -7,7 +7,6 @@ namespace VentureLeap\LeapOnePhpSdk\Services\AutoMapper;
 use AutoMapperPlus\AutoMapperPlusBundle\AutoMapperConfiguratorInterface;
 use AutoMapperPlus\Configuration\AutoMapperConfigInterface;
 use VentureLeap\LeapOnePhpSdk\Model\User\User;
-use VentureLeap\LeapOnePhpSdk\Model\User\UserTypes;
 use VentureLeap\UserService\Model\UserJsonldUserRead;
 use VentureLeap\UserService\Model\UserJsonldUserWrite;
 

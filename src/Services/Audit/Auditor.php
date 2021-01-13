@@ -1,0 +1,189 @@
+<?php
+
+
+namespace VentureLeap\LeapOnePhpSdk\Services\Audit;
+
+use ReflectionException;
+use ReflectionMethod;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use VentureLeap\LeapOnePhpSdk\EventSubscriber\AuditEventSubscriber;
+use VentureLeap\LeapOnePhpSdk\Services\AuditLogEntryManager;
+use VentureLeap\LeapOnePhpSdk\Services\Doctrine\ProviderInterface;
+
+class Auditor
+{
+    /**
+     * @var Configuration
+     */
+    private $configuration;
+
+    /**
+     * @var ProviderInterface[]
+     */
+    private $providers = [];
+
+    /**
+     * @var ProviderInterface[]
+     */
+    private $storageProviders = [];
+
+    /**
+     * @var ProviderInterface[]
+     */
+    private $auditProviders = [];
+
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $dispatcher;
+
+    /**
+     * @var bool
+     */
+    private $is_pre43_dispatcher;
+
+    /**
+     * @var AuditLogEntryManager
+     */
+    private $auditLogEntryManager;
+
+    /**
+     * @throws ReflectionException
+     */
+    public function __construct(Configuration $configuration, EventDispatcherInterface $dispatcher, AuditLogEntryManager $auditLogEntryManager)
+    {
+        $this->auditLogEntryManager = $auditLogEntryManager;
+        $this->configuration = $configuration;
+        $this->dispatcher = $dispatcher;
+
+        $r = new ReflectionMethod($this->dispatcher, 'dispatch');
+        $p = $r->getParameters();
+        $this->is_pre43_dispatcher = 2 === \count($p) && 'event' !== $p[0]->name;
+
+        // Attach persistence event subscriber to provided dispatcher
+        $dispatcher->addSubscriber(new AuditEventSubscriber($this));
+    }
+
+    /**
+     * @return AuditLogEntryManager
+     */
+    public function getAuditLogEntryManager(): AuditLogEntryManager
+    {
+        return $this->auditLogEntryManager;
+    }
+
+    /**
+     * @param AuditLogEntryManager $auditLogEntryManager
+     */
+    public function setAuditLogEntryManager(AuditLogEntryManager $auditLogEntryManager): void
+    {
+        $this->auditLogEntryManager = $auditLogEntryManager;
+    }
+
+    public function isPre43Dispatcher(): bool
+    {
+        return $this->is_pre43_dispatcher;
+    }
+
+    public function getEventDispatcher(): EventDispatcherInterface
+    {
+        return $this->dispatcher;
+    }
+
+    public function getConfiguration(): Configuration
+    {
+        return $this->configuration;
+    }
+
+    /**
+     * @return ProviderInterface[]
+     */
+    public function getProviders(): array
+    {
+        return $this->providers;
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function getProvider(string $name): ProviderInterface
+    {
+        if (!$this->hasProvider($name)) {
+            throw new InvalidArgumentException(sprintf('Unknown provider "%s"', $name));
+        }
+
+        return $this->providers[$name];
+    }
+
+    public function hasProvider(string $name): bool
+    {
+        return \array_key_exists($name, $this->providers);
+    }
+
+    /**
+     * @return Auditor
+     *@throws ProviderException
+     *
+     */
+    public function registerProvider(ProviderInterface $provider): self
+    {
+
+        $this->providers[\get_class($provider)] = $provider;
+        $provider->setAuditor($this);
+
+        if ($provider->supportsAuditing()) {
+            $this->enableAuditing($provider);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @throws ProviderException
+     *
+     * @return $this
+     */
+    public function enableAuditing(ProviderInterface $provider): self
+    {
+        if (!$provider->supportsAuditing()) {
+            throw new ProviderException(sprintf('Provider "%s" does not support audit hooks.', \get_class($provider)));
+        }
+
+        $this->auditProviders[\get_class($provider)] = $provider;
+
+        return $this;
+    }
+
+    /**
+     * @throws ProviderException
+     *
+     * @return $this
+     */
+    public function disableAuditing(ProviderInterface $provider): self
+    {
+        if (!$provider->supportsAuditing()) {
+            throw new ProviderException(sprintf('Provider "%s" does not support audit hooks.', \get_class($provider)));
+        }
+
+        if (1 === \count($this->auditProviders)) {
+            throw new ProviderException('At least one auditing provider must be enabled.');
+        }
+
+        unset($this->auditProviders[\get_class($provider)]);
+
+        return $this;
+    }
+
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function isAuditingEnabled(ProviderInterface $provider): bool
+    {
+        $key = \get_class($provider);
+        if (!$this->hasProvider($key)) {
+            throw new InvalidArgumentException(sprintf('Unknown provider "%s"', $key));
+        }
+
+        return \array_key_exists($key, $this->auditProviders);
+    }
+}

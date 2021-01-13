@@ -1,31 +1,32 @@
 {
-  "name": "ventureleap/leap-one-php-sdk",
-  "type": "symfony-bundle",
-  "authors": [
-    {
-      "name": "Venture Leap",
-      "email": "hello@venture-leap.com"
-    }
-  ],
-  "require": {
-    "ext-json": "*",
-    "ventureleap/leap-one-configuration-sdk": "dev-master",
-    "ventureleap/leap-one-user-sdk": "dev-master",
-    "ventureleap/leap-one-messenger-sdk": "dev-master",
-    "ventureleap/leap-one-audit-log-sdk": "dev-main",
-    "ventureleap/leap-one-product-sdk": "dev-master",
-    "ventureleap/leap-one-order-sdk": "dev-master",
-    "ventureleap/leap-one-rating-sdk": "dev-master",
-    "mark-gerarts/automapper-plus-bundle": "^1.3"
-  },
-  "repositories": [
-  ],
-  "autoload": {
-    "psr-4": {
-      "VentureLeap\\LeapOnePhpSdk\\": "src/",
-      "AutoMapperPlus\\AutoMapperPlusBundle\\": ""
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+    "name": "ventureleap/leap-one-php-sdk",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "Venture Leap",
+            "email": "hello@venture-leap.com"
+        }
+    ],
+    "require": {
+        "ext-json": "*",
+        "ventureleap/leap-one-configuration-sdk": "dev-master",
+        "ventureleap/leap-one-user-sdk": "dev-master",
+        "ventureleap/leap-one-messenger-sdk": "dev-master",
+        "ventureleap/leap-one-audit-log-sdk": "dev-main",
+        "ventureleap/leap-one-product-sdk": "dev-master",
+        "ventureleap/leap-one-order-sdk": "dev-master",
+        "ventureleap/leap-one-rating-sdk": "dev-master",
+        "mark-gerarts/automapper-plus-bundle": "^1.3",
+        "doctrine/orm": "^2.8",
+        "symfony/options-resolver": "^5.2"
+    },
+    "repositories": [],
+    "autoload": {
+        "psr-4": {
+            "VentureLeap\\LeapOnePhpSdk\\": "src/",
+            "AutoMapperPlus\\AutoMapperPlusBundle\\": ""
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
