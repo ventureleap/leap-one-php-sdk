@@ -34,18 +34,9 @@ class AuditLogEntryManager
 
     public function saveAuditLogEntry(LifecycleEvent $event)
     {
-//        $body = new AuditLogEntryJsonldAuditLogWrite();
         $urlAdded = $event->getPayload();
-        $urlAdded['url'] = $this->requestStack->getCurrentRequest()->getUri();
         $event->setPayload($urlAdded);
         $body = $this->autoMapper->map($event->getPayload(), AuditLogEntryJsonldAuditLogWrite::class);
-//        $body = new AuditLogEntryJsonldAuditLogWrite();
-//        $uri = $this->requestStack->getCurrentRequest()->getUri();
-//        $body->setEntryType($event->getPayload()['type']);
-//        $body->setUserUuid($event->getPayload()['blame_id']);
-//        $body->setBody([$event->getPayload()['diffs'], $event->getPayload()['discriminator']]);
-//
-//        $body->setUrl($uri);
         $this->auditLogEntryApi->postAuditLogEntryCollection($body);
     }
 

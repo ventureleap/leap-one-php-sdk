@@ -3,7 +3,6 @@
 namespace VentureLeap\LeapOnePhpSdk\Services\Audit\Transaction;
 
 use VentureLeap\LeapOnePhpSdk\Model\Audit\Transaction\TransactionInterface;
-use VentureLeap\LeapOnePhpSdk\Services\Doctrine\DoctrineProvider;
 
 class TransactionManager implements TransactionManagerInterface
 {
@@ -17,10 +16,10 @@ class TransactionManager implements TransactionManagerInterface
      */
     private $hydrator;
 
-    public function __construct(DoctrineProvider $provider)
+    public function __construct(TransactionHydratorInterface $hydrator, TransactionProcessorInterface $processor)
     {
-        $this->processor = new TransactionProcessor($provider);
-        $this->hydrator = new TransactionHydrator($provider);
+        $this->hydrator = $hydrator;
+        $this->processor = $processor;
     }
 
     public function populate(TransactionInterface $transaction): void

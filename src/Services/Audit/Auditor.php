@@ -127,16 +127,9 @@ class Auditor
      */
     public function registerProvider(ProviderInterface $provider): self
     {
-//        if (!$provider->supportsStorage() && !$provider->supportsAuditing()) {
-//            throw new ProviderException(sprintf('Provider "%s" does not support storage and auditing.', \get_class($provider)));
-//        }
 
         $this->providers[\get_class($provider)] = $provider;
         $provider->setAuditor($this);
-
-//        if ($provider->supportsStorage()) {
-//            $this->enableStorage($provider);
-//        }
 
         if ($provider->supportsAuditing()) {
             $this->enableAuditing($provider);
@@ -144,55 +137,6 @@ class Auditor
 
         return $this;
     }
-
-//    /**
-//     * @throws ProviderException
-//     *
-//     * @return $this
-//     */
-//    public function enableStorage(ProviderInterface $provider): self
-//    {
-//        if (!$provider->supportsStorage()) {
-//            throw new ProviderException(sprintf('Provider "%s" does not support storage.', \get_class($provider)));
-//        }
-//
-//        $this->storageProviders[\get_class($provider)] = $provider;
-//
-//        return $this;
-//    }
-
-//    /**
-//     * @throws ProviderException
-//     *
-//     * @return $this
-//     */
-//    public function disableStorage(ProviderInterface $provider): self
-//    {
-//        if (!$provider->supportsStorage()) {
-//            throw new ProviderException(sprintf('Provider "%s" does not support storage.', \get_class($provider)));
-//        }
-//
-//        if (1 === \count($this->storageProviders)) {
-//            throw new ProviderException('At least one storage provider must be enabled.');
-//        }
-//
-//        unset($this->storageProviders[\get_class($provider)]);
-//
-//        return $this;
-//    }
-
-//    /**
-//     * @throws InvalidArgumentException
-//     */
-//    public function isStorageEnabled(ProviderInterface $provider): bool
-//    {
-//        $key = \get_class($provider);
-//        if (!$this->hasProvider($key)) {
-//            throw new InvalidArgumentException(sprintf('Unknown provider "%s"', $key));
-//        }
-//
-//        return \array_key_exists($key, $this->storageProviders);
-//    }
 
     /**
      * @throws ProviderException

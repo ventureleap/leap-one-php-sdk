@@ -18,10 +18,10 @@ class DoctrineProvider extends AbstractProvider
      */
     private $transactionManager;
 
-    public function __construct(ConfigurationInterface $configuration)
+    public function __construct(ConfigurationInterface $configuration, TransactionManager $manager)
     {
         $this->configuration = $configuration;
-        $this->transactionManager = new TransactionManager($this);
+        $this->transactionManager = $manager;
     }
 
     public function registerAuditingService(AuditingServiceInterface $service): ProviderInterface

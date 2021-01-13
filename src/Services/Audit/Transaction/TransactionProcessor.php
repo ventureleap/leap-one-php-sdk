@@ -6,6 +6,7 @@ use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Symfony\Component\HttpFoundation\RequestStack;
 use VentureLeap\LeapOnePhpSdk\Event\LifecycleEvent;
 use VentureLeap\LeapOnePhpSdk\Model\Audit\Transaction\TransactionInterface;
 use VentureLeap\LeapOnePhpSdk\Services\Doctrine\Configuration;
@@ -21,9 +22,15 @@ class TransactionProcessor implements TransactionProcessorInterface
      * @var DoctrineProvider
      */
     private $provider;
-    public function __construct(DoctrineProvider $provider)
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
+
+    public function __construct(DoctrineProvider $provider, RequestStack $requestStack)
     {
         $this->provider = $provider;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -60,7 +67,7 @@ class TransactionProcessor implements TransactionProcessorInterface
             'transaction_hash' => $transactionHash,
             'discriminator' => $this->getDiscriminator($entity, $meta->inheritanceType),
             'entity' => $meta->getName(),
-            'url' => null
+            'url' => $this->requestStack->getCurrentRequest()->getUri()
         ]);
     }
 
@@ -85,6 +92,7 @@ class TransactionProcessor implements TransactionProcessorInterface
             'transaction_hash' => $transactionHash,
             'discriminator' => $this->getDiscriminator($entity, $meta->inheritanceType),
             'entity' => $meta->getName(),
+            'url' => $this->requestStack->getCurrentRequest()->getUri()
         ]);
     }
 
@@ -106,6 +114,7 @@ class TransactionProcessor implements TransactionProcessorInterface
             'transaction_hash' => $transactionHash,
             'discriminator' => $this->getDiscriminator($entity, $meta->inheritanceType),
             'entity' => $meta->getName(),
+            'url' => $this->requestStack->getCurrentRequest()->getUri()
         ]);
     }
 
