@@ -6,15 +6,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Configuration implements ConfigurationInterface
 {
-    /**
-     * @var string
-     */
-    private $tablePrefix;
-
-    /**
-     * @var string
-     */
-    private $tableSuffix;
 
     /**
      * @var array
@@ -52,8 +43,6 @@ class Configuration implements ConfigurationInterface
         $this->configureOptions($resolver);
         $config = $resolver->resolve($options);
 
-        $this->tablePrefix = $config['table_prefix'];
-        $this->tableSuffix = $config['table_suffix'];
         $this->ignoredColumns = $config['ignored_columns'];
 
         if (isset($config['entities']) && !empty($config['entities'])) {
@@ -74,8 +63,6 @@ class Configuration implements ConfigurationInterface
         // https://symfony.com/doc/current/components/options_resolver.html
         $resolver
             ->setDefaults([
-                'table_prefix' => '',
-                'table_suffix' => '_audit',
                 'ignored_columns' => [],
                 'entities' => [],
                 'storage_services' => [],
@@ -83,8 +70,6 @@ class Configuration implements ConfigurationInterface
                 'viewer' => true,
                 'storage_mapper' => null,
             ])
-            ->setAllowedTypes('table_prefix', 'string')
-            ->setAllowedTypes('table_suffix', 'string')
             ->setAllowedTypes('ignored_columns', 'array')
             ->setAllowedTypes('entities', 'array')
             ->setAllowedTypes('storage_services', 'array')
@@ -139,22 +124,6 @@ class Configuration implements ConfigurationInterface
     public function isViewerEnabled(): bool
     {
         return $this->isViewerEnabled;
-    }
-
-    /**
-     * Get the value of tablePrefix.
-     */
-    public function getTablePrefix(): string
-    {
-        return $this->tablePrefix;
-    }
-
-    /**
-     * Get the value of tableSuffix.
-     */
-    public function getTableSuffix(): string
-    {
-        return $this->tableSuffix;
     }
 
     /**

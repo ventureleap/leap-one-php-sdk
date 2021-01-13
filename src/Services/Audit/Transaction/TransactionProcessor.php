@@ -206,12 +206,10 @@ class TransactionProcessor implements TransactionProcessorInterface
         /** @var Configuration $configuration */
         $configuration = $this->provider->getConfiguration();
         $schema = $data['schema'] ? $data['schema'].'.' : '';
-//        $auditTable = $schema.$configuration->getTablePrefix().$data['table'].$configuration->getTableSuffix();
         $dt = new DateTime('now', new DateTimeZone($this->provider->getAuditor()->getConfiguration()->getTimezone()));
 
         $payload = [
             'entity' => $data['entity'],
-//            'table' => $auditTable,
             'type' => $data['action'],
             'object_id' => (string) $data['id'],
             'discriminator' => $data['discriminator'],

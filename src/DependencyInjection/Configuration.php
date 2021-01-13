@@ -74,16 +74,6 @@ class Configuration implements ConfigurationInterface
                     $v['doctrine'] = [];
                 }
 
-                // "table_prefix" is empty by default.
-                if (!\array_key_exists('table_prefix', $v['doctrine']) || !\is_string($v['doctrine']['table_prefix'])) {
-                    $v['doctrine']['table_prefix'] = '';
-                }
-
-                // "table_suffix" is "_audit" by default.
-                if (!\array_key_exists('table_suffix', $v['doctrine']) || !\is_string($v['doctrine']['table_suffix'])) {
-                    $v['doctrine']['table_suffix'] = '_audit';
-                }
-
                 // "entities" are "enabled" by default.
                 if (\array_key_exists('entities', $v['doctrine']) && \is_array($v['doctrine']['entities'])) {
                     foreach ($v['doctrine']['entities'] as $entity => $options) {
