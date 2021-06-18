@@ -87,6 +87,12 @@ class UserConfig implements AutoMapperConfiguratorInterface
                 function (UserJsonldUserRead $source) {
                     return $source->getAccount();
                 }
+            )
+            ->forMember(
+                'phoneNumber',
+                function (UserJsonldUserRead $source) {
+                    return $source->getPhoneNumber();
+                }
             );
 
         /**
@@ -119,6 +125,7 @@ class UserConfig implements AutoMapperConfiguratorInterface
                         'roles' => $source->getRoles(),
                         'user_type' => $source->getUserType(),
                         'custom_data' => $source->getCustomData(),
+                        'phone_number' => $source->getPhoneNumber(),
                     ];
                 }
             );
