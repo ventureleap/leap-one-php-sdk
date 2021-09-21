@@ -9,13 +9,13 @@
   ],
   "require": {
     "ext-json": "*",
-    "ventureleap/leap-one-configuration-sdk": "dev-master",
-    "ventureleap/leap-one-user-sdk": "dev-master",
-    "ventureleap/leap-one-messenger-sdk": "dev-master",
+    "ventureleap/leap-one-configuration-sdk": "dev-main",
+    "ventureleap/leap-one-user-sdk": "dev-main",
+    "ventureleap/leap-one-messenger-sdk": "dev-main",
     "ventureleap/leap-one-audit-log-sdk": "dev-main",
-    "ventureleap/leap-one-product-sdk": "dev-master",
-    "ventureleap/leap-one-order-sdk": "dev-master",
-    "ventureleap/leap-one-rating-sdk": "dev-master",
+    "ventureleap/leap-one-product-sdk": "dev-main",
+    "ventureleap/leap-one-order-sdk": "dev-main",
+    "ventureleap/leap-one-rating-sdk": "dev-main",
     "mark-gerarts/automapper-plus-bundle": "^1.3"
   },
   "repositories": [
