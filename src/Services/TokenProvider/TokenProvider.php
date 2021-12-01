@@ -53,6 +53,10 @@ class TokenProvider implements TokenProviderInterface
 
     public function getToken(): string
     {
+        if (empty($this->getApplicationId())) {
+            return 'no_token';
+        }
+
         $cacheItem = $this->cache->getItem('jwt_token');
 
         if ($cacheItem->isHit() && $this->isCachedTokenValid($cacheItem->get())) {
